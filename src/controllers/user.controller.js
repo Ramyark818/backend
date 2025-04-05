@@ -237,7 +237,7 @@ const changeCurrentPassword = asyncHandler(async(req,res)=>{
 
     return res
     .status(200)
-    .json(new ApiResponse(200,"Password changed successfully"))
+    .json(new ApiResponse(200,{},"Password changed successfully"))
 })
 
 const getCurrentUser = asyncHandler(async(req,res)=>{
@@ -252,7 +252,7 @@ const updateAccountDetails=asyncHandler(async(req,res)=>{
     if(!fullname || !email){
         throw new ApiError(400,"All fields are required")
     }
-    User.findByIdAndUpdate(
+    const user=await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set:{
